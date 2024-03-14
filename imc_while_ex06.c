@@ -1,6 +1,38 @@
 //aula 14/3/24
 #include <stdio.h>
 #include <locale.h>
+#include <string.h>
+
+float imcCalculo(float a, float b);
+void classificacao(float a);
+
+char class[50];
+
+float imcCalculo(float a, float b){
+    printf("\n\nCalculando...\n\n");
+    float imc;
+    imc = a/(b*b);
+    return imc;
+}
+
+void classificacao(float a){
+    if(a <= 16.9){
+        strcpy(class, "Classificação do imc: muito abaixo do peso.");
+    }
+    if(a >= 17 && a < 18.5){
+        strcpy(class,"Classificação do imc: abaixo do peso.");
+    }else if (a >= 18.5 && a < 25){
+        strcpy(class, "Classificação do imc: peso ideal.");
+    }else if(a >= 24.9 && a < 30){
+        strcpy(class, "Classificação do imc: levemente acima do peso.");
+    }else if (a >= 29.9 && a < 35){
+        strcpy(class, "Classificação do imc: obesidade grau I.");
+    }else if (a >= 34.9 && a < 41){
+        strcpy(class, "Classificação do imc: obesidade grau II.");
+    }else{
+        strcpy(class, "Classificação do imc: obesidade grau III.");
+    }
+}
 
 void main(void){
 
@@ -23,29 +55,13 @@ void main(void){
             printf("Insira seu peso: ");
             scanf("%f", &peso);
 
-            imc = peso/(altura*altura);
-
-            printf("\n\nCalculando...\n\n");
-
             setlocale(LC_ALL, "Portuguese");
 
-                if(imc <= 16.9){
-                    printf("Valor do imc: %.2f \nClassificação do imc: muito abaixo do peso.", imc);
-                }
-                if(imc >= 17 && imc < 18.5){
-                    printf("Valor do imc: %.2f \nClassificação do imc: abaixo do peso.", imc);
-                }else if (imc >= 18.5 && imc < 25){
-                    printf("Valor do imc: %.2f \nClassificação do imc: peso ideal.", imc);
-                }else if(imc >= 24.9 && imc < 30){
-                    printf("alor do imc: %.2f \nClassificação do imc: levemente acima do peso.", imc);
-                }else if (imc >= 29.9 && imc < 35){
-                    printf("Valor do imc: %.2f \nClassificação do imc: obesidade grau I.", imc);
-                }else if (imc >= 34.9 && imc < 41){
-                    printf("Valor do imc: %.2f \nClassificação do imc: obesidade grau II.", imc);
-                }else{
-                    printf("Valor do imc: %.2f \nClassificação do imc: obesidade grau III.", imc);
-                }
-
+            imc = imcCalculo(peso, altura);
+        
+            classificacao(imc);
+            printf("%s", class);
+            
         }else{
             printf("\nOpção errada, tente novamente.");
             opcao = 's';
