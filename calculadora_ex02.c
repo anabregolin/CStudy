@@ -1,5 +1,4 @@
 //aula 7/3/24
-
 #include <stdio.h>
 #include <stdbool.h>
 #include <locale.h>
