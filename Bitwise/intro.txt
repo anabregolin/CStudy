@@ -1,0 +1,149 @@
+Trabalhando com dados, talvez, preciso extrair alguns
+bits, ou criar criptografia, etc.
+
+As operações bitwise são operações bit a bit (and, or, xor, ...)
+e deslocamento para direita e para esquerda (shift)
+
+digamos que eu tenha um unsigned char. (de 0 até 255). Tenho um
+valor de 8 bits. Nele, cada bit tem uma função. Então, eu preciso
+extrair para minha informação esses bits. Muitas vezes, preciso
+pegar cada bit do byte e mandar para um determinado lugar. Ou seja,
+posso querer serialziar isso, pegar esse bit e dizer para onde ele 
+vai.
+
+A comunicação de periféricos e um PC ocorre por cout
+
+
+tenho meu PC que se counica de forma serial com um ESP (devido ao USB).
+Na comunicação serial, os dados chegam assim: 
+
+o transmissor (tx) está sempre em nível lógico alto. Quando a comunicação
+começa, ele baixa. Espera um tempo e, então, começa a sinalizar os bits
+que eu quero que chegue até a ESP. Na tabela ASCII, 'A' é 0x41,
+o valor em binário disso é 0100 0001 (quando clicanos na tecla 'A',
+é isso que se passa). Digito 'A' no pc e quero que chegue no ESP,
+ele vai serial pelo tx, que aumenta e abaixa.
+
+Uma comunicação assincrona, sem o sinal de clock para sincronizar
+Ajustamos a taxa de transmissão de um lado para o outro (ex: 9600 bits por segundo
+e 9600bps). O intervalo de tempo é 1/9600 = 104,16. Quando o transmissor
+joga pra 0, o recebtor (Rx, o ESP) percebe que vai começar a comunicação
+serial.
+
+Como ele vai fazer para pegar esses valores e ir armazenando no seu 
+registrador? 0 | 1 | 0 | 0 | 0 | ...
+
+
+
+Outra situação é a seguinte...
+Tenho meu micro Controlador (uC?). Digamos que foi criado um:
+unsigned char leds = 0xAA; que é 1010 1010
+
+Só que, no meu uC, tenbo 8 saídas diferentes para acionar meus 8 leds.
+Eu tenho que saber qual é o valor armazenado no hexa, fazer uma 
+operação bit a bit, para conseguir extrair os valores
+(1010 1010) para conseguir mandar para cada pino. Não tenho como 
+mandar de uma vez só, pode ser que os pinos não estejam em 
+sequência
+
+    Quando eu quero escrever no pino 3:
+    tenho uma instrução digitalWrite(3, HIGH); ou LOW
+    Posso definir que o pino 3 corresponde ao led 7
+
+    #define led7 3
+    #define led6 4
+
+    ficando, então, digitalWrite(led7, 1);
+
+Enfim, tendo meu 0xAA, vou ter que testar se cada bit dele é 
+1 ou 0 para poder definir o que vou botar no valor do digitalWrite
+(se é HIGH - 1 ou LOW - 0);
+
+
+
+OPERAÇÔES
+    0b1010
+    - parte baixa depois de b, antes, são 4 zeros
+    - 0b00001010
+    - ou em hexa: 0x0A
+
+
+
+    AND bit a bit (&)
+    - realizando AND de 0b1100 & 0b1010, temos 0b1000
+    - da esquerda para direita, usa-se como tabela verdade,
+    só sera 1 quando ambos forem 1
+
+    OR bit a bit (|)
+    - 0b110 | 0b1010, temos 0b1110
+    - da esquerda para direita, tabela verdade
+
+    XOR bit a bit (^)
+    - 1 apenas com valores inversos
+    - 0b110 ^ 0b1010, temos 0b0110
+
+    NOT bit a bit (~)
+    - inverte todos os bits do operando
+    - ~0b110, temos 0b0011
+
+
+
+    DESLOCAMENTO À ESQUERDA (<<)
+    - desloca os bits à esquerda por um número especificado de
+    posições, preenchendo com 0 à direita
+    - 0b1100 << 2, temos 0b110000 (temos 4 após b)
+
+    DESLOCAMENTO À DIREITA (>>)
+    - desloca os bits à direita por um número especificado de
+    posições, preenchendo com 0 à esquerda
+    - 0b1100 >> 2, temos 0b0011
+
+
+
+
+
+
+Muitas vezes, nós queremos pegar um bit só e fazer as máscaras. Vamos supor
+que nós temos:
+
+    unsigned char valor = 0xAA
+
+E queremos descobrir se o bit mais significativo é 1, temos:
+
+    um vetor de 8 bits (char), sem valor negativo (unsigned)
+
+    bits:      7 6 5 4 3 2 1 0
+    valores:  |1|0|1|0|1|0|1|0|
+
+    Para saber se o bit 7 é 1, como testar?
+
+    - Diversas formas
+        - Uma delas é a operação de máscara, onde ignoramos todos os outros
+        bits e testamos o primeiro bit. Faremos uma operação & com o valor 80H,
+        que é: |1|0|0|0|0|0|0|0| -> 0x80. Se eu fazer a operação AND entre 0x80
+        e me retornar 1, está feito o teste e provou-se que o primeiro é 1.
+
+        |1|0|1|0|1|0|1|0|
+        |1|0|0|0|0|0|0|0|
+        -----------------
+        1 0 0 0 0 0 0 0 
+
+            if(valor & 0x90 == 0x80)
+                printf("bit 7 é 1");
+            else
+                printf("bit 7 é 0!);
+
+        NÓS USAMOS:
+        0x80 (1000.0000), 0x40 (0100.0000), 0x20 (0010.0000), 0x10 (0001.0000),
+        0x08 (0000.1000), 0x04 (0000.0100), 0x02 (0000.0010), 0x01 (0000.0001)
+
+
+
+REPRESENTAÇÃO DE UM VALOR BINÁRIO OU HEXADECIMAL
+Tanto A quanto B são usadas para inicializar uma variável unsigned
+char com um valor específico:
+
+    unsigned char A = 0b1100;
+    unsigned char B = 0x0c;
+
+    

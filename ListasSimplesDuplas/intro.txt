@@ -1,0 +1,151 @@
+Listas lineares simples
+Listas circulares simples
+Listas lineares com descritor
+
+Listas lineares duplas
+Listas circulares duplas
+Listas circulares com descritos
+
+    VANTAGENS
+    - flexibilidade de tamanho
+    - eficiência de inserção/remoção
+    - uso eficiente de memória
+    - facilidade de implementação
+    - desempenho constante p/ diferentes tamanhos
+
+
+    DESVANTAGENS
+    - sobrecarga de memória (cada nó ocupa dado e referência)
+    - acesso sequencial (percorre desde o início)
+    - complexidade de gerenciamento (cuidado com alocação e liberação)
+    - complexidade de código (remoção de último nó, gerenciar lista vazia...)
+    - dificuldade de previsão de uso de memória
+
+
+    STRUCT
+        struct celula{
+            int idade;
+            struct celula *prox;
+        }
+
+        typedef struct celula cel; //apelido cel para struct celula
+        struct celula{
+            int idade;
+            cel *prox; //struct celula
+        }
+
+        typedef struc celula{
+            int idade;
+            struct celula *prox;
+        } cel;
+
+    
+    COM USAR
+    Uma célula c e um ponteiro p para uma célula podem ser declarados como:
+        celula c;
+        celula *p;
+
+    Se c é uma célula, então c.idade é o conteúdo da célula, e c.prox é 
+    o endereço da próxima célula
+
+    Se p é o endereço de uma célula, então p-> dade é o conteúdo da
+    célula e p->prox é o endereço da próxima célula
+
+        p->idade = 25
+        p->prox = q;
+
+        q->idade = 30;
+        q->prox = NULL;
+
+    Se p é o endereço da última célula, então p->prox valo NULL
+
+
+
+LISTA LINEAR SIMPLESMENTE ENCADEADA
+É uma estrutura de dados que representa uma sequência de obejtos na memória
+do computador. Cada elemento é armazenado em uma unidade chamada de nó ou
+célula. 
+
+    NÓ 
+    - possui o dado
+    - possui uma referência para o próximo nó
+
+    
+    INSERÇÃO DE ELEMENTOS NO INICIO DE LISTA    
+    Remove L para info1, ajusta para info4, info4 aponta para info1
+
+
+    REMOÇÃO DE ELEMENTOS DA LISTA
+    Info1 aponta para info3, info2 é desalocado
+
+
+LISTA CIRCULAR SIMPLESMENTE ENCADEADA
+A informação se dá de forma ciruclar. O final da lista aponta para o início 
+da mesma. Sempre informar se ponteiro está apontando para incício ou final.
+
+    INSERÇÃO DE ELEMENTOS NO INÍCIO
+    Se o head aponta para o início da lista e a inserção ocorrerá no 
+    início, é necessário encontrar p último elemento, para que ele passe 
+    a apontar para o primeiro elemento
+
+    1°) Novo elemento aponta para o primeiro elemento
+    2°) Último elemento aponta para o novo elemento
+    3°) Head aponta para novo elemento
+
+
+    INSERÇÃO DE ELEMENTOS NO FIM
+    Se o head aponta para o início da lista e a inserção ocorrerá no
+    final da lista, é necessário percorrer toda a lista e depois fazer
+    esse novo elemento apontar para o primeiro da lista e o "último" para
+    o novo elemento.
+
+    1°) Novo elemento aponta para o primeiro elemento
+    2°) Ultimo elemento aponta para o novo elemento
+
+
+    HEAD APONTA PARA O FIM DA LISTA E INSERIR NOVO ELEMENTO NO INÍCIO
+    Basta identificar o próximo elemento (primeiro da lista) e fazer o
+    último apontar para o novo e o novo para o "primeiro"
+
+    1°) Novo elemento aponta para o primeiro elemento
+    2°) Último elemento aponta para o novo elemento
+
+
+LISTA LINEAR SIMPLESMENTE ENCADEADA COM DESCRITOR 
+É uma estrutura que pode conter informações que serão úteis na implantação.
+Por exemplo, neste descritor por conter o número de nós da lista, quem é 
+p primeiro elemento, quantas operações de inserção foram realizadas, quantas 
+remoções foram feitas, etc. Mesma topologia mas, agora, com um ponteiro
+apontando para um descritor (o prox do descritor é o head)
+
+
+LISTA LINEAR DUPLAMENTE ENCADEADA 
+Consite em uma sequ~encia de elementos, chamados nós, que contém dois ponteiros.
+um para o nó anterior e um para o nó seguinte. 
+
+    struct node{
+        int nData;
+        struct node *pNext;
+        struct node *pPrev;
+    }
+
+    VANTAGENS E DESVANTAGENS
+    - remoção é mais trabalhosa
+    - pode-se retirar elemento conhecendo-se apenas o ponteiro para ele
+    - utiliza-se função de busca para localizar o eleemnto e em seguida o 
+    encadeamento é ajustadi
+    - ao final, o elemento é liberado
+
+    Sendo p o ponteiro para o elemento a ser excluído, se o elemento estiver 
+    no meio da lista, devemos fazer:
+        p->ant->prox = p->prox;
+        p->prox->ant = p->ant;
+
+    
+LISTA CIRCULAR DUPLAMENTE ENCADEADA
+Cada nó possui dois ponteiros: um para o próximo elemento anterior e outro
+para o próximo elemento (ant e prox). O anterior do primeiro é o último e o 
+último é o primeiro
+
+
+LISTA LINEAR DUPLAMENTE ENCADEADA COM DESCRITOR

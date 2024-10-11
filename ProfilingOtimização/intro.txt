@@ -1,0 +1,56 @@
+PROFILING E OTIMIZAÇÃO
+Técnicas para melhorar o desempenho de um software.
+
+
+PROOFILNG
+É o processo de medir e analisar a performance de um programa para 
+identificar gargalos ou partes do código que podem ser melhoradas. Em C,
+isso geralmente envolve o uso de ferramentas que monitoram a execução
+do programa, coletando dados sobre a utilização de recursos como tempo
+de CPU e memória. COLETA DE DADOS
+
+    OBJETIVO DO PROFILING
+    - identificação de gargalos: descobrir quais partes do código consomem mais
+    tempo ou recursos
+    - entendimento do comportamento do programa: analisar a frequência
+    e a duração das chamadas de funções
+    - base para otimização: fornecer dados concretos para direcionar
+    os esforços de otimização
+
+    FERRAMENTAS 
+    - Gproof (relatórios)
+    - Valgrind (cache e chamadas)
+    - Perf (linux)
+
+
+OTIMIZAÇÃO
+É o processo de modificar um programa para melhorar sua performance com
+base nos dados coletados no profiling. Mais eficiente em termo de tempo de
+execução, uso de memória e outros. MODIFICAÇÃO A PARTIR DE COLETA
+
+    TIPOS DE OTIMIZAÇÃO
+    - otimização de tempo: reduz o tempo de execução
+    - otimização de espaço: reduz uso de memória
+    - otimização de I/O: melhora operções de entrada e saída
+
+    TÉCNICAS COMUNS DE OTIMIZAÇÃO
+    - otimização de algoritmos: escolher allgoritmos mais eficinetes para
+    resolver problemas específicos
+    - melhoria de estrutura de dados: utiliza estrutura de dados que 
+    oferencem melhor performance para determinadas operações
+    - elimicação de código redundante: remover código desnecessário ou
+    repetitivo
+    - inlining de funções: substituir chamadas de funções por suas 
+    implementações diretas para evitar o overhead da chamada de função
+    - loop unrolling: desenrolar loops para reduzir o overhead da iteração
+    - uso de compiladores otimizadores: GCC e Clang com flags e opções para
+    otimização, como -o2, -o3, eficiente
+
+
+    DICAS DE OTIMIZAÇÃO 
+    Uso de inlining de funções. Embora seja uma boa prática de programa 
+    dividir o código em pequenas funções, o custo da chamada dessas
+    funções pode afetar negativamente. Usando o inlining, a chamada é 
+    substituída por uma cópia do próprio código na função. Em C, isso 
+    pode ser feito através da definição de macros... Veremos um exemplo.
+

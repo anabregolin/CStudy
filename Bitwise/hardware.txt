@@ -1,0 +1,81 @@
+OPERAÇÃO BIT A BIT EM HARDWARE
+Pode ser feito no VSCODE ou em site. Supondo que temos uma placa
+Arduino (que é um projeto, não um processador, nessas placas estão
+os processadores de outros fabricantes)
+
+void setup()
+{
+    //cada configuração d epino, oq ele faz...
+}
+
+void loop() //busca, decodificação, execução em loop
+{
+    //lógica do programa
+}
+
+
+DECLARAÇÃO DE pinos
+    pinMode(pino, INPUT); //numero ou define
+    pintMode(pino, OUTPUT);
+
+
+
+DECLARAÇÃO DE COMUNICAÇÃO SERIAL 
+    Serial.begin(baud_rate); //9600; 19200; 115200;
+
+
+ESCREVENDO NO PINO 
+    digitalWrite(pino, HIGH/LOW);
+    digitalWrite(pino 1/0);
+
+
+LENDO UM PINO
+    digitalRead(pino);
+
+        ex:
+        #define chave 5;
+
+            //...
+
+        pintMode(chave, INPUT);
+        Serial.begin(19200);
+
+            //...
+
+        if(digitalRead(chave)) //se for nível lógico alto...
+            Serial.println("Chave = 1");
+        else    
+            Serial.println("Chave = 0");
+
+
+COMO DECLARAR OS PINOS COMO SAÍDA QUANDO ESTÃO EM SEQUÊNCIA?
+    int i;
+
+    void setup()
+    {
+        for(i=0; 1<7; i++)
+            pinMode(i+2, OUTPUT); //pino inicial é 2, vai configurando todos os pinos, pode ser manual
+    }
+
+
+COMO ESCREVER AS LETRAS 'F' 'A' 'S' 'E' NO DISPLAY SETE-SEGMENTOS 
+USANDO BITWISE?
+
+    Lembrar do display de sete-segmentos, possui 5 pinos em cima e 
+    5 pinos em baixo, sendo cada de a até g. Sendo 0 ligado e 1 desligado
+
+    xy| pto a b c d e f g
+    00| 1   0 1 1 1 0 0 0 | F
+    01| 1   0 0 0 1 0 0 0 | A
+    10| 1   0 1 0 0 1 0 0 | S
+    11| 1   0 1 1 0 0 0 0 | E
+
+    F = 10111000 = 0xB8
+    A = 10001000 = 0X88
+    S = 10100100 = 0XA4
+    E = 10110000 = 0XB0
+
+    tenho que pegar esses valor e jogar em cada pino do meu micro controlador,
+    fazendo diversos digitalWrites.
+
+fantabulouws wolf-densor

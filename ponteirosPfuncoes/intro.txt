@@ -1,0 +1,10 @@
+Em C, o uso de ponteiros para funções serve para definir,
+em tempo de execução, qual função será executada, sem a necessidade
+de escrever o nome da função de forma explícita
+
+A definição de qual funçãos erá executada é feita em outro
+ponto do código, apontando para função desejada.
+
+Eu mudo o nome da função. É uma forma mais enxuta de programar.
+
+como mando escrever uma letra E em led? Operações bitwise
